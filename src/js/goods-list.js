@@ -79,18 +79,18 @@ class GoodsList {
 $(".item-wrapper ul li a").on('click', function (e) {
     var evt = window.event || e;
     var sortEvent = ["sort", "sales", "price_low", "price_high"]
-    getGoodsList({
+    scrollLoadGoods = new LoadGoods({
         category_id: 152,
         page: 1,
         sort: sortEvent[$(evt.target).parent().index()],
-        num: 100
+        num: 15
     }, true)
     $(this).addClass("active")
         .parent().siblings().children("a").removeClass("active")
 })
 
 function getGoodsList(getData = {}, isRefresh) {
-    if (isRefresh) $('.category-list').empty();
+    console.log("ajax开始请求")
     $.ajax({
         url: "/smartisan_goods_list/v1/search/goods-list",
         data: {
@@ -103,23 +103,79 @@ function getGoodsList(getData = {}, isRefresh) {
         },
         dataType: "json",
         success: function (response) {
-            new GoodsList(response.data.list,true)
+            console.log("ajax完成")
+            new GoodsList(response.data.list,isRefresh);
+            //pageCount = response.data.pageCount;
         }
     });
 }
+function LoadGoods(getData,isRefresh){
+    var lock = true;
+    var pageNum = getData.page;
+    var pageCount = 0
+    $.ajax({
+        url: "/smartisan_goods_list/v1/search/goods-list",
+        data: {
+            category_id: getData.category_id,
+            page: getData.page,
+            sort: getData.sort,
+            num: getData.num,
+            type: "shop",
+            channel_id: 1001
+        },
+        dataType: "json",
+        success: function (response) {
+            new GoodsList(response.data.list,isRefresh);
+            pageCount = response.data.pageCount;
+        }
+    });
+    return function(isRefresh){
+        if(lock){
+            lock = false;
+            new Promise(function(resolve,reject){
+                console.log("Promise执行了")
+                pageNum+=1;
+                if(pageNum <= pageCount){
+                    $.ajax({
+                        url: "/smartisan_goods_list/v1/search/goods-list",
+                        data: {
+                            category_id: getData.category_id,
+                            page: pageNum,
+                            sort: getData.sort,
+                            num: getData.num,
+                            type: "shop",
+                            channel_id: 1001
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            console.log("ajax完成")
+                            new GoodsList(response.data.list,isRefresh);
+                            resolve()
+                        }
+                    });
+                }
+            }).then(function(){
+                lock = true;
+                console.log("then   完成")
+            }).catch(function(){
+                
+            })
+        }
+    }
+}
 
-getGoodsList({
+//形成闭包,储存page页数
+var scrollLoadGoods = new LoadGoods({
     category_id: 152,
     page: 1,
     sort: "sort",
-    num: 100
+    num: 15
 }, true)
-
 $(window).scroll( function(e) { 
     var evt = window.event || e;
-     
+    var distance = $(".category-list").height()+$(".category-list").offset().top - ( $(window).scrollTop() + $(window).height())
+    console.log(distance)
+    if(distance<100){
+        scrollLoadGoods(false)
+    }
 } );
-
-function lazyLoadList(){
-    $(".category-list")
-}
