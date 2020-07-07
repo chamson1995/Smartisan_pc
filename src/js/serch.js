@@ -1,7 +1,7 @@
 console.log('seach bar ajax')
 $(".search-wrapper input").on("input",function(){
     $.ajax({
-        url:"/smartisan_hotword",
+        url:"/smartisan_hotword/v1/search/suggest",
         data:{
             keyword:$(".search-wrapper input").val()
         },

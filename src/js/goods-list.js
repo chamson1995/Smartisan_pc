@@ -1,57 +1,125 @@
-class GoodsList{
-    constructor(dataList){
-        this.dataList = dataList
+class GoodsList {
+    constructor(dataList,isRefresh) {
+        this.dataList = dataList;
+        this.isRefresh = isRefresh;
+        this.setAll()
+        this.setHoverColor()
     }
-    getItem(sku){
-        var item = 
-            "<section  class='item'>"+
-                "<figure class='item-cover'>"+
-                    "<img src='"+sku.spuInfo.images+"'>"+
-                "</figure>"+
-                "<article>"+
-                    "<h3>"+ sku.spuInfo.spuTitle +"</h3>"+
-                    "<h5 class='txt-product-title'>"+sku.spuInfo.spuSubTitle+"</h5>"+
-                "</article>"+
-                "<aside class='item-attr-colors'>"+
-                "</aside>"+
-                "<article class='item-price'>"+
-                    "<span>"+sku.spuInfo.discountPrice+"</span>"+
-                    "<span class='orignal-price'>"+sku.spuInfo.price+"</span>"+
-                "</article>"+
-                "<div class='activity-tag'>"+
-                (sku.spuInfo.tagText==""? "":("<span class='"+(sku.spuInfo.tagText=="满减"?"red":"yellow")+"'>"+sku.spuInfo.tagText+"</span>"))+
-                "</div>"+
-                "<div class='markup-tag'></div>"+
+    getItem(sku,index) {
+        var color = ""
+        if (sku.skuList.length > 1) {
+            sku.skuList.forEach((list,index) => {
+                if(list.skuColor!=""){
+                    color +=
+                        "<figure class = 'outer "+(index==0?"active":"")+"' >"+
+                            "<img src = '"+list.skuColor+"?x-oss-process=image/resize,w_20'>"+
+                        "</figure>"
+                }
+            });
+        }
+        var item =
+            "<section  class='item' index='"+ index +"'>" +
+                "<figure class='item-cover'>" +
+                    "<img src='" + sku.spuInfo.images + "?x-oss-process=image/resize,w_216'>" +
+                "</figure>" +
+                "<article>" +
+                    "<h3>" + sku.spuInfo.spuTitle + "</h3>" +
+                    "<h5 class='txt-product-title'>" + sku.spuInfo.spuSubTitle + "</h5>" +
+                "</article>" +
+                "<aside class='item-attr-colors'>" +
+                    color+
+                "</aside>" +
+                "<article class='item-price'>" +
+                    "<span>¥ " + sku.spuInfo.discountPrice + "</span>" +
+                    "<span class='orignal-price'>" + sku.spuInfo.price + "</span>" +
+                "</article>" +
+            "<div class='activity-tag'>" +
+            (sku.spuInfo.tagText == "" ? "" : ("<span class='" + (sku.spuInfo.tagText == "满减" ? "red" : "yellow") + "'>" + sku.spuInfo.tagText + "</span>")) +
+            "</div>" +
+            "<div class='markup-tag'></div>" +
             "</section>"
         return item;
     }
-    getAll(){
+    setAll(){
         var all = ""
-        this.dataList.forEach(element => {
-            all += this.getItem(element);
+        this.dataList.forEach((list,index) => {
+            all += this.getItem(list,index);
         });
-        return all;
+        if(this.isRefresh) $('.category-list').empty();
+        $('.category-list').append(all);
+    }
+    setHoverColor(){
+        var _this = this
+        $(".item-attr-colors figure").on("mouseenter",function(e){
+            var evt = window.event || e;
+            var colorIndex = $(evt.target).index();
+            var index = $(this).parent().parent().attr("index")
+            console.log(_this.dataList[index].skuList,colorIndex)           
+
+            var thisTitle =  
+                "<h3>" + _this.dataList[index].skuList[colorIndex].skuTitle + "</h3>" +
+                "<h5 class='txt-product-title'>" + _this.dataList[index].skuList[colorIndex].skuSubTitle + "</h5>" ;
+            var thisImage = 
+                "<img src='" + _this.dataList[index].skuList[colorIndex].images + "?x-oss-process=image/resize,w_216'>" 
+            var thisPrice =
+                "<span>¥ " + _this.dataList[index].skuList[colorIndex].discountPrice + "</span>" +
+                "<span class='orignal-price'>" + _this.dataList[index].skuList[colorIndex].originalPrice + "</span>"
+            $(this).parent()
+                .prev().empty().append(thisTitle)
+                .prev().empty().append(thisImage)
+            $(this).parent()
+                .next().empty().append(thisPrice)
+            $(this).addClass("active").siblings().removeClass("active")
+        })
     }
 }
 
 
 // 主体部分商品列表
-$.ajax({
-    url: "/smartisan_goods_list",
-    data: {
-        category_id:152,
-        page:1,
-        sort:"sort",
-        num:100,
-        type:"shop",
-        channel_id:1001
-    },
-    dataType: "json",
-    success: function (response) {
-        $('.category-list').empty().append(new GoodsList(response.data.list).getAll());
-    }
-});
+$(".item-wrapper ul li a").on('click', function (e) {
+    var evt = window.event || e;
+    var sortEvent = ["sort", "sales", "price_low", "price_high"]
+    getGoodsList({
+        category_id: 152,
+        page: 1,
+        sort: sortEvent[$(evt.target).parent().index()],
+        num: 100
+    }, true)
+    $(this).addClass("active")
+        .parent().siblings().children("a").removeClass("active")
+})
 
-function getGoodsList(page,count){
-    
+function getGoodsList(getData = {}, isRefresh) {
+    if (isRefresh) $('.category-list').empty();
+    $.ajax({
+        url: "/smartisan_goods_list/v1/search/goods-list",
+        data: {
+            category_id: getData.category_id,
+            page: getData.page,
+            sort: getData.sort,
+            num: getData.num,
+            type: "shop",
+            channel_id: 1001
+        },
+        dataType: "json",
+        success: function (response) {
+            new GoodsList(response.data.list,true)
+        }
+    });
+}
+
+getGoodsList({
+    category_id: 152,
+    page: 1,
+    sort: "sort",
+    num: 100
+}, true)
+
+$(window).scroll( function(e) { 
+    var evt = window.event || e;
+     
+} );
+
+function lazyLoadList(){
+    $(".category-list")
 }

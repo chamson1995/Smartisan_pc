@@ -1,39 +1,53 @@
-/*
-gulp
-    cssHandler        压缩css的规则
-    jsHandler           js转语法和压缩
-    htmlHandler       压缩html       
-    libHandler          处理lib里的内容(简单移动)
-    images              处理images里面的图片(简单移动)
-    del                    删除指定目录
-
-第三方
-    gulp-cssmin     
-        压缩css
-    gulp-autoprefixer   
-        给css自动添加浏览器兼容前缀
-    gulp-uglify        
-        压缩js  
-        只能压缩es5
-    gulp-babel  (依赖@babel/core和@babel/preset-env)
-        把es6语法转es5
-    gulp-htmlmin
-        压缩html
-    del
-        删除目录
-    gulp-webserver
-        开启服务器
-
-*/
-
 const gulp = require('gulp');
 const webserver = require('gulp-webserver');
-const testServer = ()=>{
+const  sass = require('gulp-sass')
+const babel = require('gulp-babel')
+const autoprefixer = require("gulp-autoprefixer");
+const cssmin = require("gulp-cssmin");
+const htmlmin = require("gulp-htmlmin");
+const jsmin = require("gulp-jsmin");
+const jsugify = require("gulp-uglify");
+const { series } = require('gulp');
+
+
+//编译sass任务
+var scssHandler =  ()=>{
+    console.log('scss')
+    return gulp
+            .src("./src/sass/*.scss")
+            .pipe(sass())
+            .pipe(gulp.dest("./src/css"))
+}
+//打包任务
+var cssminHandler = ()=>{
+    return gulp
+            .src("./src/css/*.css")
+            .pipe(autoprefixer())
+            .pipe(cssmin())
+            .pipe(gulp.dest("./dist/css"))
+}
+var jsminHandler = ()=>{
+    return  gulp
+            .src("./src/js/*.js")
+            .pipe(babel())
+            .pipe(jsmin())
+            .pipe(gulp.dest("./dist/js"))
+}
+var htmlminHandler = ()=>{
+    return  gulp
+            .src("./src/pages/*.html")
+            .pipe(htmlmin())
+            .pipe(gulp.dest("./dist/pages"))
+}
+
+
+// 服务器测试 已弃用
+var testServer = ()=>{
     return gulp
         .src('./src')
         .pipe(webserver({
-            port:8001,
-            open:'./pages/topBar.html',
+            port:8000,
+            open:'./pages/category.html',
             livereload:true,
             proxies:[
                 {
@@ -42,17 +56,31 @@ const testServer = ()=>{
                 },
                 {
                     source:'/smartisan_second_nav',
-                    target:'https://shopapi.smartisan.com/v1/cms/second_nav'
+                    target:'https://shopapi.smartisan.com'
+                },
+                {
+                    source:'/smartisan_goods_list',
+                    target:'https://shopapi.smartisan.com'
+                },
+                {
+                    source:'/home',
+                    target:'https://shopapi.smartisan.com'
                 }
             ]
         }))
-
 }
-
-const watchHandler = ()=>{
-    gulp.watch('./src',testServer)
-    console.log(1111111111)
+var watchHandler = ()=>{
+    gulp.watch('./',testServer)
 }
 
 
-module.exports.default = testServer;
+module.exports.default = gulp.series(
+    scssHandler,
+    gulp.parallel(
+        htmlminHandler,
+        cssminHandler,
+        jsminHandler
+    ),
+    testServer,
+    watchHandler
+)

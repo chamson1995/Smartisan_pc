@@ -1,0 +1,66 @@
+.banner {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 800px; }
+  .banner .banner-container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+    width: 100%;
+    height: 499px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; }
+    .banner .banner-container .banner-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      transition-property: transform;
+      box-sizing: content-box; }
+      .banner .banner-container .banner-wrapper .banner-slide {
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 5;
+        opacity: 0;
+        transition: 0.5s ease-in-out; }
+        .banner .banner-container .banner-wrapper .banner-slide .banner-img {
+          width: 100%;
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          cursor: pointer; }
+    .banner .banner-container .banner-pagination {
+      position: absolute;
+      text-align: center;
+      transition: opacity .3s;
+      z-index: 10;
+      bottom: 10px;
+      left: 0;
+      width: 100%; }
+      .banner .banner-container .banner-pagination .banner-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        border-radius: 100%;
+        background: #000;
+        opacity: .2;
+        cursor: pointer;
+        margin: 0 4px;
+        transition: 0.5s ease-in-out; }
+      .banner .banner-container .banner-pagination .banner-pagination-bullet-active {
+        opacity: 1;
+        background: #e9e9e9; }

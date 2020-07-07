@@ -47,9 +47,6 @@
     font-weight: 700;
     color: #333;
 }
-
-/* 详细商品列表 */
-
 .title-wrapper .sub-panel-wrapper-hide, .title-wrapper .sub-panel-wrapper-show{
     width: 100%;
     left: 0;
@@ -57,30 +54,23 @@
     z-index: 10;
     background-color: #fff;
     position: absolute;
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,.05);
-    overflow: hidden;
-    transition: height .15s ease;
-}
-
-
-
-.title-wrapper .sub-panel-wrapper-hide, .title-wrapper .sub-panel-wrapper-show{
-    width: 100%;
-    left: 0;
-    top: 75px;
-    z-index: 10;
-    background-color: #fff;
-    position: absolute;
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,.05);
+    /* box-shadow: 0 4px 10px 0 rgba(0,0,0,.05); */
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
     transition: height .15s ease;
 }
 .title-wrapper .sub-panel-wrapper-hide{
     height: 0;
+    box-shadow:none;
+
 }
 .title-wrapper .sub-panel-wrapper-show{
     height: 266px;
 }
+
+
+
+/* 详细商品列表 */
 .nav-sub-container, .nav-sub-container .category-wrapper {
     display: flex;
     justify-content: center;
@@ -95,7 +85,7 @@
     color: rgba(0,0,0,.8);
     font-weight: 700;
 }
-/* 无图商品列表 */
+/* 无图  服务列表 */
 .service-list{
     display: flex;
     flex-direction: column;

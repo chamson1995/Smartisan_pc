@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^4.0.2"
+    "@babel/core": "^7.10.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^7.0.1",

@@ -1,4 +1,3 @@
-
 //隐藏/显示 详细菜单
 class menuList{
     constructor(selector){
@@ -17,6 +16,7 @@ class menuList{
     }
     init(){
         var _this = this
+        console.log($(this.selector))
         $(this.selector).on('mouseleave',function(){
             _this.hide();
         })
@@ -97,12 +97,11 @@ function setSecondbar(dataList){
     })
     secbar += "<li><a class='title'>服务</a></li>";
     $('.title-content').append(secbar);
-
     //给secondBar中的每一项添加hover事件,展开列表
     dataList.forEach((li,index) => {
         if(li.type == "category"){
             //小题类型的列表
-            $('.title-content li').eq(index).on('mouseenter',function(){
+            $('.title-content li a').eq(index).on('mouseover',function(){
                 this.category = new Category(li.list).getAll()
                 $(".category-wrapper").empty()
                 $(".category-wrapper").css({display:'flex'}).siblings().css({display:'none'})
@@ -111,7 +110,7 @@ function setSecondbar(dataList){
         }
         if(li.type ==  "goods"){
             //大图类型的列表
-            $('.title-content li').eq(index).on('mouseenter',function(){
+            $('.title-content li a').eq(index).on('mouseover',function(){
                 this.goods = new Goods(li.list).getAll()
                 $(".goods-container").empty()
                 $(".goods-container").css({display:'flex'}).siblings().css({display:'none'})
@@ -119,20 +118,19 @@ function setSecondbar(dataList){
             })
         }
     })
-    //最后一项服务 (因为这个列表不再请求数据里)
-    $('.title-content li').last().on('mouseenter',function(){
+    //最后一项 服务 (因为这个列表不再请求数据里)
+    $('.title-content li a').last().on('mouseenter',function(){
         $('.service-list').css({display:'flex'})
             .siblings().css({display:'none'})
     })
-    
 }
-const menu_list = new menuList(".title-wrapper");
+
 $.ajax({
-    url:"/smartisan_second_nav",
+    url:"/smartisan_second_nav/v1/cms/second_nav",
     success:function(data){
         setSecondbar(data);
     }
 })
-
+const menu_list = new menuList(".title-wrapper");
 
 

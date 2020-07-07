@@ -3,21 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Document</title>
     <link rel="stylesheet" href="../css/smartisanReset.css">
     <link rel="stylesheet" href="../css/topbar.css">
     <link rel="stylesheet" href="../css/second-bar.css">
     <link rel="stylesheet" href="../css/app-content.css">
-    <link rel="stylesheet" href="../css/banner.css">
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/activities.css">
+    <link rel="stylesheet" href="../css/item.css">
     <script src="../js/jquery-1.12.4.js"></script>
-    <style>
-        .swiper-container {
-            box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .15);
-        }
-    </style>
 </head>
 
 <body>
@@ -39,6 +32,7 @@
                     </div>
                     <div class="cart-drawer-wrapper">
                         <div class="list-container">
+
                             <!-- 购物车列表 -->
                             <div class="cart-empty">
                                 <p class="desc">
@@ -48,12 +42,13 @@
                                     您还没有选购任何商品，现在前往商城选购吧！
                                 </p>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="topbar-container clearfix">
-                <ul~ class="tabs-item">
+                <ul class="tabs-item">
                     <li class="active">在线商城</li>
                     <li class="">坚果 Pro 3</li>
                     <li class="">坚果 Pro 2S</li>
@@ -70,7 +65,7 @@
                             <p><strong>下载锤子商城 APP</strong></p>
                         </div>
                     </li>
-                </ul~>
+                </ul>
             </div>
         </header>
         <!-- second-bar -->
@@ -78,7 +73,7 @@
             <div class="main-title-wrapper clearfix">
                 <div class="main-title">
                     <div class="title-wrapper">
-
+                        
                         <ul class="title-content">
                         </ul>
                         <!-- 详细列表 -->
@@ -108,14 +103,11 @@
                         <div>
                             <div class="form">
                                 <button class="submit-btn"></button>
-                                <input autocomplete="off" autocapitalize="off" autocorrect="off" placeholder=""
-                                    maxlength="30" class="search-text light">
+                                <input autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="" maxlength="30" class="search-text light">
                                 <!---->
                                 <div class="recommends">
-                                    <a href="https://www.smartisan.com/category/233?type=shop"
-                                        class="recommend">蓝牙耳机</a>
-                                    <a href="https://www.smartisan.com/category/235?type=shop"
-                                        class="recommend">移动电源</a>
+                                    <a href="https://www.smartisan.com/category/233?type=shop" class="recommend">蓝牙耳机</a>
+                                    <a href="https://www.smartisan.com/category/235?type=shop" class="recommend">移动电源</a>
                                 </div>
                             </div>
                             <!---->
@@ -125,6 +117,7 @@
                                 </div>
                                 <!-- 关键词提示列表 -->
                                 <ul class="list">
+
                                 </ul>
                             </div>
                         </div>
@@ -134,10 +127,29 @@
         </div>
         <!-- 主体内容 -->
         <div class="app-content-wrap">
-            <div class="home-wrap">
-                <div class="banner"></div>
-                <section class="activities-wrap"></section>
-                
+            <div>
+                <div class="container-wappper item-wrapper">
+                    <ul class="container clearfix">
+                        <li class="item clearfix">
+                            <a class="link active">综合排序</a>
+                            <span class="dot"></span>
+                        </li>
+                        <li class="item clearfix">
+                            <a class="link">销量排序</a>
+                            <span class="dot"></span>
+                        </li>
+                        <li class="item clearfix">
+                            <a class="link">价格低到高</a>
+                            <span class="dot"></span>
+                        </li>
+                        <li class="item clearfix">
+                            <a class="link">价格高到低</a>
+                        </li>
+                    </ul>
+                    <div class="category-list flex-box">
+                        <!-- Category List -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -145,7 +157,6 @@
     <script src="../js/serch.js"></script>
     <script src="../js/topbar.js"></script>
     <script src="../js/goods-list.js"></script>
-    <script src="../js/home.js"></script>
 </body>
 
 </html>
