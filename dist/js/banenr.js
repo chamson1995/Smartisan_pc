@@ -1,3 +1,0 @@
-
-function _3dHover(selector){var h=$(selector).height();var w=$(selector).width();$(".banner").on('mousemove',function(e){var evt=window.event||e;$(selector).css({transition:"none",transform:"rotateX("+-(evt.offsetY-h/2)/h+"deg) rotateY("+(evt.offsetX-w/2)/w+"deg)",boxShadow:-(evt.offsetX-w/2)/w*20+"px "+-(evt.offsetY-h/2)/h*20+"px 10px 0 rgba(0,0,0,0.2)"});});$(".banner").on('mouseleave',function(e){var evt=window.event||e;$(selector).css({transition:"0.15s ease-in-out",transform:"rotateX(0deg) rotateY(0deg)",boxShadow:"0 0 10px 0px rgba(0,0,0,0.2)"});});}
-_3dHover(".swiper-container");

@@ -1,3 +1,4 @@
+const del = require('del');
 const gulp = require('gulp');
 const webserver = require('gulp-webserver');
 const  sass = require('gulp-sass')
@@ -12,7 +13,6 @@ const { series } = require('gulp');
 
 //编译sass任务
 var scssHandler =  ()=>{
-    console.log('scss')
     return gulp
             .src("./src/sass/*.scss")
             .pipe(sass())
@@ -39,7 +39,9 @@ var htmlminHandler = ()=>{
             .pipe(htmlmin())
             .pipe(gulp.dest("./dist/pages"))
 }
-
+var delHandler = ()=>{
+    return del(['./dist'])
+}
 
 // 服务器测试 已弃用
 var testServer = ()=>{
@@ -47,7 +49,7 @@ var testServer = ()=>{
         .src('./src')
         .pipe(webserver({
             port:8000,
-            open:'./pages/category.html',
+            open:'./pages/index.html',
             livereload:true,
             proxies:[
                 {
@@ -75,6 +77,7 @@ var watchHandler = ()=>{
 
 
 module.exports.default = gulp.series(
+    delHandler,
     scssHandler,
     gulp.parallel(
         htmlminHandler,

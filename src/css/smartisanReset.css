@@ -75,3 +75,10 @@ ol, ul {
 img {
     border: 0;
 }
+
+button {
+    overflow: visible;
+}
+button, select {
+    text-transform: none;
+}

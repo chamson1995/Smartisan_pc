@@ -54,8 +54,6 @@ class GoodsList {
             var evt = window.event || e;
             var colorIndex = $(evt.target).index();
             var index = $(this).parent().parent().attr("index")
-            console.log(_this.dataList[index].skuList,colorIndex)           
-
             var thisTitle =  
                 "<h3>" + _this.dataList[index].skuList[colorIndex].skuTitle + "</h3>" +
                 "<h5 class='txt-product-title'>" + _this.dataList[index].skuList[colorIndex].skuSubTitle + "</h5>" ;
@@ -89,26 +87,23 @@ $(".item-wrapper ul li a").on('click', function (e) {
         .parent().siblings().children("a").removeClass("active")
 })
 
-function getGoodsList(getData = {}, isRefresh) {
-    console.log("ajax开始请求")
-    $.ajax({
-        url: "/smartisan_goods_list/v1/search/goods-list",
-        data: {
-            category_id: getData.category_id,
-            page: getData.page,
-            sort: getData.sort,
-            num: getData.num,
-            type: "shop",
-            channel_id: 1001
-        },
-        dataType: "json",
-        success: function (response) {
-            console.log("ajax完成")
-            new GoodsList(response.data.list,isRefresh);
-            //pageCount = response.data.pageCount;
-        }
-    });
-}
+// function getGoodsList(getData = {}, isRefresh) {
+//     $.ajax({
+//         url: "/smartisan_goods_list/v1/search/goods-list",
+//         data: {
+//             category_id: getData.category_id,
+//             page: getData.page,
+//             sort: getData.sort,
+//             num: getData.num,
+//             type: "shop",
+//             channel_id: 1001
+//         },
+//         dataType: "json",
+//         success: function (response) {
+//             new GoodsList(response.data.list,isRefresh);
+//         }
+//     });
+// }
 function LoadGoods(getData,isRefresh){
     var lock = true;
     var pageNum = getData.page;
@@ -133,11 +128,10 @@ function LoadGoods(getData,isRefresh){
         if(lock){
             lock = false;
             new Promise(function(resolve,reject){
-                console.log("Promise执行了")
                 pageNum+=1;
                 if(pageNum <= pageCount){
                     $.ajax({
-                        url: "/smartisan_goods_list/v1/search/goods-list",
+                        url: "/smartisan_goods_list",
                         data: {
                             category_id: getData.category_id,
                             page: pageNum,
@@ -148,7 +142,6 @@ function LoadGoods(getData,isRefresh){
                         },
                         dataType: "json",
                         success: function (response) {
-                            console.log("ajax完成")
                             new GoodsList(response.data.list,isRefresh);
                             resolve()
                         }
@@ -156,7 +149,6 @@ function LoadGoods(getData,isRefresh){
                 }
             }).then(function(){
                 lock = true;
-                console.log("then   完成")
             }).catch(function(){
                 
             })
@@ -174,7 +166,6 @@ var scrollLoadGoods = new LoadGoods({
 $(window).scroll( function(e) { 
     var evt = window.event || e;
     var distance = $(".category-list").height()+$(".category-list").offset().top - ( $(window).scrollTop() + $(window).height())
-    console.log(distance)
     if(distance<100){
         scrollLoadGoods(false)
     }

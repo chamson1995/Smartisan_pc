@@ -1,4 +1,9 @@
-//隐藏/显示 详细菜单
+/*
+    second Bar 下拉详细菜单
+        绑定 
+            移入second bar 标题  show下拉菜单
+            移出 hide下啦菜单
+*/
 class menuList{
     constructor(selector){
         this.selector = selector
@@ -16,16 +21,20 @@ class menuList{
     }
     init(){
         var _this = this
-        console.log($(this.selector))
         $(this.selector).on('mouseleave',function(){
             _this.hide();
         })
-        $(this.selector).on('mouseenter',function(){
+        $(this.selector+" .title-content a").on('mouseenter',function(){
             _this.show();
         })
     }
 }
-// 小图bar 列表
+/*
+    下拉category类型
+    小图
+    new时传入categoryArr 数据
+    gettAll()方法 return  html字符串
+*/
 class Category{
     constructor(categoryArr){
         this.categoryArr = categoryArr;
@@ -64,7 +73,13 @@ class Category{
         return all;
     }
 }
-// 大图bar 列表
+
+/*
+    下拉goods类型
+    大图
+    new时传入Good List
+    gettAll()方法 return  html字符串
+*/
 class Goods{
     constructor(goodsList){
         this.goodsList = goodsList;
@@ -89,6 +104,8 @@ class Goods{
         return all;
     }
 }
+
+
 function setSecondbar(dataList){
     var secbar ="";
     //初始化secondBar
@@ -97,11 +114,12 @@ function setSecondbar(dataList){
     })
     secbar += "<li><a class='title'>服务</a></li>";
     $('.title-content').append(secbar);
+    
     //给secondBar中的每一项添加hover事件,展开列表
     dataList.forEach((li,index) => {
         if(li.type == "category"){
             //小题类型的列表
-            $('.title-content li a').eq(index).on('mouseover',function(){
+            $('.title-content li a').eq(index).on('mouseenter',function(){
                 this.category = new Category(li.list).getAll()
                 $(".category-wrapper").empty()
                 $(".category-wrapper").css({display:'flex'}).siblings().css({display:'none'})
@@ -110,7 +128,7 @@ function setSecondbar(dataList){
         }
         if(li.type ==  "goods"){
             //大图类型的列表
-            $('.title-content li a').eq(index).on('mouseover',function(){
+            $('.title-content li a').eq(index).on('mouseenter',function(){
                 this.goods = new Goods(li.list).getAll()
                 $(".goods-container").empty()
                 $(".goods-container").css({display:'flex'}).siblings().css({display:'none'})
@@ -129,8 +147,8 @@ $.ajax({
     url:"/smartisan_second_nav/v1/cms/second_nav",
     success:function(data){
         setSecondbar(data);
+        const menu_list = new menuList(".title-wrapper");
     }
 })
-const menu_list = new menuList(".title-wrapper");
 
 
