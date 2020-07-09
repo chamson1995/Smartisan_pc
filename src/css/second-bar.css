@@ -2,7 +2,7 @@
 .container.sticky{
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 /* main title */
 .main-title-wrapper{
@@ -19,6 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 8;
 }
 /* title bar */
 .title-wrapper .title-content{
@@ -34,14 +35,10 @@
     list-style: none;
 }
 .title-wrapper .title-content .title {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     margin-right: 30px;
     font-size: 14px;
     line-height: 74px;
-    -webkit-transition: color .1s ease;
     transition: color .1s ease;
     color: rgba(0,0,0,.7);
     white-space: nowrap;
@@ -53,14 +50,15 @@
 .title-wrapper .sub-panel-wrapper-hide, .title-wrapper .sub-panel-wrapper-show{
     width: 100%;
     left: 0;
-    top: 75px;
-    z-index: 10;
+    top: 74px;
+    z-index: 7;
     background-color: #fff;
     position: absolute;
     /* box-shadow: 0 4px 10px 0 rgba(0,0,0,.05); */
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
     transition: height .15s ease;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 .title-wrapper .sub-panel-wrapper-hide{
     height: 0;

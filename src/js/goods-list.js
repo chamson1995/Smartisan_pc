@@ -73,37 +73,12 @@ class GoodsList {
 }
 
 
-// 主体部分商品列表
-$(".item-wrapper ul li a").on('click', function (e) {
-    var evt = window.event || e;
-    var sortEvent = ["sort", "sales", "price_low", "price_high"]
-    scrollLoadGoods = new LoadGoods({
-        category_id: 152,
-        page: 1,
-        sort: sortEvent[$(evt.target).parent().index()],
-        num: 15
-    }, true)
-    $(this).addClass("active")
-        .parent().siblings().children("a").removeClass("active")
-})
+var request = GetRequest()
+console.log(request.category)
 
-// function getGoodsList(getData = {}, isRefresh) {
-//     $.ajax({
-//         url: "/smartisan_goods_list/v1/search/goods-list",
-//         data: {
-//             category_id: getData.category_id,
-//             page: getData.page,
-//             sort: getData.sort,
-//             num: getData.num,
-//             type: "shop",
-//             channel_id: 1001
-//         },
-//         dataType: "json",
-//         success: function (response) {
-//             new GoodsList(response.data.list,isRefresh);
-//         }
-//     });
-// }
+// 主体部分商品列表
+
+
 function LoadGoods(getData,isRefresh){
     var lock = true;
     var pageNum = getData.page;
@@ -112,7 +87,7 @@ function LoadGoods(getData,isRefresh){
         url: "/smartisan_goods_list/v1/search/goods-list",
         data: {
             category_id: getData.category_id,
-            page: getData.page,
+            page: pageNum,
             sort: getData.sort,
             num: getData.num,
             type: "shop",
@@ -131,7 +106,7 @@ function LoadGoods(getData,isRefresh){
                 pageNum+=1;
                 if(pageNum <= pageCount){
                     $.ajax({
-                        url: "/smartisan_goods_list",
+                        url: "/smartisan_goods_list/v1/search/goods-list",
                         data: {
                             category_id: getData.category_id,
                             page: pageNum,
@@ -158,7 +133,7 @@ function LoadGoods(getData,isRefresh){
 
 //形成闭包,储存page页数
 var scrollLoadGoods = new LoadGoods({
-    category_id: 152,
+    category_id: parseInt(request.category),
     page: 1,
     sort: "sort",
     num: 15
@@ -170,3 +145,15 @@ $(window).scroll( function(e) {
         scrollLoadGoods(false)
     }
 } );
+$(".item-wrapper ul li a").on('click', function (e) {
+    var evt = window.event || e;
+    var sortEvent = ["sort", "sales", "price_low", "price_high"]
+    scrollLoadGoods = new LoadGoods({
+        category_id: parseInt(request.category),
+        page: 1,
+        sort: sortEvent[$(evt.target).parent().index()],
+        num: 15
+    }, true)
+    $(this).addClass("active")
+        .parent().siblings().children("a").removeClass("active")
+})

@@ -1,14 +1,17 @@
-const del = require('del');
-const gulp = require('gulp');
-const webserver = require('gulp-webserver');
-const  sass = require('gulp-sass')
-const babel = require('gulp-babel')
-const autoprefixer = require("gulp-autoprefixer");
-const cssmin = require("gulp-cssmin");
-const htmlmin = require("gulp-htmlmin");
-const jsmin = require("gulp-jsmin");
-const jsugify = require("gulp-uglify");
-const { series } = require('gulp');
+var del = require('del');
+var gulp = require('gulp');
+var webserver = require('gulp-webserver');
+var  sass = require('gulp-sass')
+var babel = require('gulp-babel')
+var autoprefixer = require("gulp-autoprefixer");
+var cssmin = require("gulp-cssmin");
+var htmlmin = require("gulp-htmlmin");
+var jsmin = require("gulp-jsmin");
+var jsugify = require("gulp-uglify");
+var { series } = require('gulp');
+var phpserver = require('gulp-connect-php');
+
+
 
 
 //编译sass任务
@@ -71,6 +74,19 @@ var testServer = ()=>{
             ]
         }))
 }
+
+var phpHandler = ()=>{
+    return gulp.src("./src")
+        .pipe(
+            phpserver({
+                port:8001,
+                open:true,
+                bin:"/Applications/MAMP/bin/php/php7.4.2/bin"
+            })
+        )
+}
+
+
 var watchHandler = ()=>{
     gulp.watch('./',testServer)
 }
@@ -85,5 +101,6 @@ module.exports.default = gulp.series(
         jsminHandler
     ),
     testServer,
-    watchHandler
+    watchHandler,
+    phpHandler
 )

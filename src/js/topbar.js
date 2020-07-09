@@ -108,9 +108,10 @@ class Goods{
 
 function setSecondbar(dataList){
     var secbar ="";
+    var reg = /\d{3}/;
     //初始化secondBar
-    dataList.forEach(li=>{
-        secbar += "<li><a href='"+ li.url +"' class='title'>"+ li.name +"</a></li>";
+    dataList.forEach((li,index)=>{
+        secbar += "<li><a href='"+ (index==0?"./index.html":( "./category.html?category="+reg.exec(li.url) ))+"' class='title'>"+ li.name +"</a></li>";
     })
     secbar += "<li><a class='title'>服务</a></li>";
     $('.title-content').append(secbar);
@@ -152,3 +153,12 @@ $.ajax({
 })
 
 
+
+// 购物车hover事件
+
+$(".nav-cart a").on('mouseenter',function(){
+    $(".cart-drawer-wrapper").css({
+        visibility:"visible",
+        opacity:1
+    })
+})
