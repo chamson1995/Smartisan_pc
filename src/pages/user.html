@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/jquery-1.12.4.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        
+    <label for="username">用户名</label>
+    <input type="text" name="username" id="username">
+    <label for="password">密码</label>
+    <input type="text" name="password" id="password">
+    <button onclick="user('login')">登陆</button>
+    <button onclick="user('regist')">注册</button>
+
+    <script>
+function user(option){
+    var un =$("#username").val()
+    var pw = $("#password").val()
+    console.log(un,pw)
+    if(un == "" || pw==""){
+        alert("输入用户明或密码");
+    }else{
+        $.ajax({
+            type: "post",
+            url: "/myphpuser",
+            data: {
+                username:un,
+                password:pw,
+                option:option
+            },
+            success: function (response) {
+                console.log(response);
+                location.href = "./index.html"
+            }
+        });
+    }
+    
+}
+    </script>
+</body>
+</html>

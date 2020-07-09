@@ -70,6 +70,18 @@ var testServer = ()=>{
                 {
                     source:'/home',
                     target:'https://shopapi.smartisan.com'
+                },
+                {
+                    source:'/smartisan_cart',
+                    target:'https://shopapi.smartisan.com/product/spus'
+                },
+                {
+                    source:'/myphpuser',
+                    target:'http://localhost:666/php/user.php'
+                },
+                {
+                    source:'/myphpcart',
+                    target:'http://localhost:666/php/cart.php'
                 }
             ]
         }))

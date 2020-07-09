@@ -1,0 +1,174 @@
+{
+    "code": 0,
+    "data": {
+        "list": [
+            {
+                "id": 1001112,
+                "name": "鹿客(LOOCK) 智能锁 Classic2X",
+                "price": 1999.00,
+                "sale_status": 3,
+                "product_info": {
+                    "product_type": 1,
+                    "is_package": 0,
+                    "product_name": "鹿客(LOOCK) 智能锁 Classic2X",
+                    "category_id": 275,
+                    "product_code": 1001112,
+                    "is_mobile": 0,
+                    "is_insurance": 0,
+                    "has_sn": 0,
+                    "accessory_goods": {},
+                    "category_id_cn": "指纹锁",
+                    "supplier_info": {
+                        "group_id": "",
+                        "switch_item": ""
+                    }
+                },
+                "shop_info": {
+                    "spu_title": "鹿客(LOOCK) 智能锁 Classic2X",
+                    "spu_sub_title": "更美观，更智能",
+                    "spu_mobile_title": "鹿客(LOOCK) 智能锁 Classic2X",
+                    "spu_mobile_sub_title": "更美观，更智能",
+                    "spu_promo_title": "",
+                    "highlights": "",
+                    "sale_model": "1",
+                    "book_num": "0",
+                    "spec_v2": [
+                        {
+                            "spec_id": 1,
+                            "spec_name": "颜色",
+                            "visiable": 1,
+                            "show_type": "2",
+                            "spec_values": [
+                                {
+                                    "id": "36",
+                                    "spec_id": 1,
+                                    "item_value": "黑色",
+                                    "show_name": "黑色",
+                                    "image": ""
+                                }
+                            ],
+                            "image_pre": "",
+                            "image_name": ""
+                        }
+                    ],
+                    "tpl_id": "base",
+                    "tpl_content": {
+                        "base": {
+                            "images": {
+                                "1x": null,
+                                "2x": null,
+                                "mobile": null,
+                                "image_pre": null,
+                                "spec_params": {
+                                    "url": [],
+                                    "width": 0,
+                                    "height": 0
+                                },
+                                "spec_params_mobile": {
+                                    "url": [],
+                                    "width": 0,
+                                    "height": 0
+                                },
+                                "ali": {
+                                    "url": [
+                                        "https://resource.smartisan.com/resource/c3af46fc129a33d7543e4a4ebf546952.png"
+                                    ],
+                                    "width": 533,
+                                    "height": 8190,
+                                    "piece_height": 1440,
+                                    "pieces_num": 6
+                                },
+                                "ali_mobile": {
+                                    "url": [
+                                        "https://resource.smartisan.com/resource/a0d531c69e27299bcb4758a68358107f.jpg"
+                                    ],
+                                    "width": 750,
+                                    "height": 18746,
+                                    "piece_height": 1440,
+                                    "pieces_num": 14
+                                }
+                            },
+                            "attributes": [
+                                {
+                                    "title": "",
+                                    "list": [
+                                        {
+                                            "name": "",
+                                            "value": ""
+                                        }
+                                    ]
+                                }
+                            ],
+                            "aftersale": [
+                                {
+                                    "title": "",
+                                    "content": ""
+                                }
+                            ],
+                            "extra": [
+                                {
+                                    "title": "",
+                                    "content": ""
+                                }
+                            ]
+                        }
+                    },
+                    "buy_notes": [],
+                    "groups_huabei": [],
+                    "groups_zhaoshang": [],
+                    "describe": [],
+                    "recmd_skus": [],
+                    "is_freeship": 1,
+                    "merchant_id": 1,
+                    "postage_info": {
+                        "base_freight": "10",
+                        "fee_amount": "99"
+                    },
+                    "commission_type": 1,
+                    "commission_value": 0,
+                    "default_sku": "100111201"
+                },
+                "sku_info": [
+                    {
+                        "sku_id": "100111201",
+                        "title": "鹿客(LOOCK) 智能锁 Classic2X",
+                        "sub_title": "更美观，更智能",
+                        "promo_title": "",
+                        "is_showsku": "0",
+                        "color_id": "36",
+                        "appearance_color_id": "",
+                        "image": "",
+                        "ali_image": "https://resource.smartisan.com/resource/e0fe48fd80f2a5970979687f6b825681.jpg",
+                        "direct_to_cart": true,
+                        "price": "1999.00",
+                        "spec_json": [
+                            {
+                                "spec_id": 1,
+                                "spec_value_id": "36",
+                                "show_name": "黑色",
+                                "item_value": "黑色",
+                                "image": "",
+                                "show_short_name": ""
+                            }
+                        ]
+                    }
+                ],
+                "acc_info": {
+                    "package_list": ""
+                },
+                "after_sell_info": {
+                    "is_back": "1",
+                    "back_deadline": "7",
+                    "is_exchange": "1",
+                    "exchange_deadline": "15",
+                    "is_repair": "1",
+                    "ship_price": "150",
+                    "is_deliver": "1",
+                    "hours": "72"
+                },
+                "created_at": 1594091727000,
+                "updated_at": 1594092407000
+            }
+        ]
+    }
+}
