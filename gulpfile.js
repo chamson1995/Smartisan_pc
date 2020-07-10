@@ -52,7 +52,7 @@ var testServer = ()=>{
         .src('./src')
         .pipe(webserver({
             port:8000,
-            open:'./pages/index.html',
+            open:'./pages/user.html',
             livereload:true,
             proxies:[
                 {

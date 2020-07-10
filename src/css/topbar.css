@@ -186,6 +186,9 @@
 .cart-list-wrapper .cart-list {
     -webkit-transition: all .3s;
     transition: all .3s;
+    min-height: 480px;
+    max-height: 480px;
+    overflow-y: scroll;
 }
 
 
@@ -333,7 +336,7 @@
     font-size: 12px;
 }
 
-.btn[data-v-6258fd55] {
+.btn {
     text-align: center;
     overflow: hidden;
     outline: none;
@@ -348,7 +351,7 @@
     -webkit-transition: all .15s ease-out;
     transition: all .15s ease-out;
 }
-.btn-primary[data-v-6258fd55] {
+.btn-primary {
     background: -webkit-gradient(linear,left top,left bottom,from(#6391f2),to(#4b75ec));
     background: linear-gradient(180deg,#6391f2,#4b75ec);
     color: #fff;

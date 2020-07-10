@@ -9,7 +9,7 @@
 
     if($check_rows>0){
         if($option=="getcart"){
-            $sql = "SELECT * FROM cart WHERE `user_id` = '$uid' ";
+            $sql = "SELECT * FROM cart WHERE `user_id` = '$uid' ORDER BY `category_id` DESC";
             $result = mysqli_query($conn,$sql);
             if(mysqli_num_rows($result)>0){	
                 $arr = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -29,34 +29,33 @@
             }else{
                 $sql = "INSERT INTO `cart` (`user_id`,`category_id`,`count`) VALUES ('$uid','$categoryid',1)";
             }
-            echo $sql;
             $result = mysqli_query($conn,$sql);
             if($result){
-                echo "code:1,msg:'添加成功'";
+                echo json_encode(array("code"=>1,"msg"=>"添加成功"));
             }else{
-                echo "code:0,msg:'添加失败'";
+                echo json_encode(array("code"=>0,"msg"=>"添加失败"));
             }
         }
         if($option=="delcart"){
-            $sql = "DELETE FROM `cart` WHERE `category_id`=$categoryid";
+            $sql = "DELETE FROM `cart` WHERE `user_id`=$uid AND `category_id`=$categoryid";
             $result = mysqli_query($conn,$sql);
             if($result){
-                echo "code:1,msg:'删除成功'";
+                echo json_encode(array("code"=>1,"msg"=>"删除成功","category_id"=>$categoryid));
             }else{
-                echo "code:0,msg:'删除失败'";
+                echo json_encode(array("code"=>0,"msg"=>"删除失败"));
             }
         }
         if($option=="delallcart"){
             $sql = "DELETE FROM `cart` WHERE `user_id`=$uid";
             $result = mysqli_query($conn,$sql);
             if($result){
-                echo "code:1,msg:'清空成功'";
+                echo json_encode(array("code"=>1,"msg"=>"清空成功"));
             }else{
-                echo "code:0,msg:'清空失败'";
+                echo json_encode(array("code"=>0,"msg"=>"清空失败"));
             }
         }
     }else{
-        echo "{code:0,msg:'你还没有登陆'}";
+        echo json_encode(array("code"=>1,"msg"=>"你还没有登陆"));
     }
 
     mysqli_close($conn);

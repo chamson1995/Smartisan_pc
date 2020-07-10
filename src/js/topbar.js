@@ -157,8 +157,16 @@ $.ajax({
 // 购物车hover事件
 
 $(".nav-cart a").on('mouseenter',function(){
+    $(".list-container").empty()
+    getCart();
     $(".cart-drawer-wrapper").css({
         visibility:"visible",
         opacity:1
+    })
+})
+$(".cart-drawer-wrapper").on('mouseleave',function(){
+    $(this).css({
+        visibility:"hidden",
+        opacity:0
     })
 })
